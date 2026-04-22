@@ -1,5 +1,6 @@
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener("DOMContentLoaded", () => {
 
+/******** PRODUCTOS ********/
 const productos = [
 {
 nombre:"Netflix",
@@ -139,16 +140,16 @@ cuenta:[]
 }
 ];
 
-let cart=[];
-
-const cont=document.getElementById("productos");
+/******** VARIABLES ********/
+let cart = [];
+const cont = document.getElementById("productos");
 
 /******** RENDER ********/
 productos.forEach((p,i)=>{
 
 const radios = `
 <label><input type="radio" name="tipo-${i}" value="pantalla" checked> Pantalla</label>
-${p.cuenta.length ? `<label><input type="radio" name="tipo-${i}" value="cuenta"> Cuenta completa</label>`:""}
+${p.cuenta.length ? `<label><input type="radio" name="tipo-${i}" value="cuenta"> Cuenta completa</label>` : ""}
 `;
 
 cont.innerHTML += `
@@ -156,9 +157,9 @@ cont.innerHTML += `
 <img src="${p.img}" class="product-img">
 <h2 class="font-bold mt-2">${p.nombre}</h2>
 
-<div class="mt-2">${radios}</div>
+<div class="text-sm mt-1">${radios}</div>
 
-<select id="select-${i}" class="w-full text-black mt-2 p-2 rounded"></select>
+<select id="select-${i}" class="w-full text-black mt-2 p-1 rounded"></select>
 
 <button onclick="addToCart(${i})" class="btn">Agregar</button>
 </div>
@@ -172,13 +173,13 @@ r.addEventListener("change", ()=>updateSelect(i));
 
 });
 
-/******** FIX REAL ********/
+/******** FIX SELECT ********/
 window.updateSelect = function(i){
 
 const tipo = document.querySelector(`input[name="tipo-${i}"]:checked`).value;
 const select = document.getElementById(`select-${i}`);
 
-let lista = tipo === "pantalla" ? productos[i].pantalla : productos[i].cuenta;
+const lista = tipo === "pantalla" ? productos[i].pantalla : productos[i].cuenta;
 
 select.innerHTML = "";
 
@@ -201,7 +202,6 @@ select.selectedIndex = 0;
 window.addToCart = function(i){
 
 const val = document.getElementById(`select-${i}`).value;
-
 if(val === "No disponible") return;
 
 const precio = parseInt(val.split(" - ")[1]);
@@ -221,18 +221,19 @@ document.getElementById("contador").innerText =
 cart.reduce((s,p)=>s+p.qty,0);
 }
 
+/******** MODAL ********/
 window.openCart = function(){
 
-const div=document.getElementById("cartItems");
-div.innerHTML="";
-let total=0;
+const div = document.getElementById("cartItems");
+div.innerHTML = "";
+let total = 0;
 
 cart.forEach((p,i)=>{
-let sub=p.qty*p.precio;
-total+=sub;
+let sub = p.qty * p.precio;
+total += sub;
 
-div.innerHTML+=`
-<div>
+div.innerHTML += `
+<div class="mb-2 border-b pb-2">
 <b>${p.name}</b><br>
 ${p.opcion}<br>
 ${p.qty} x $${p.precio}<br>
@@ -240,41 +241,52 @@ ${p.qty} x $${p.precio}<br>
 
 <button onclick="addOne(${i})">+</button>
 <button onclick="removeOne(${i})">-</button>
-<button onclick="deleteItem(${i})">Eliminar</button>
-<hr>
+<button onclick="deleteItem(${i})" class="text-red-500">Eliminar</button>
 </div>
 `;
 });
 
-div.innerHTML+=`<b>Total: $${total.toLocaleString("es-CO")}</b>`;
+div.innerHTML += `<h3 class="mt-2 font-bold">Total: $${total.toLocaleString("es-CO")}</h3>`;
 
 document.getElementById("cartModal").style.display="flex";
 };
 
 window.closeCart = ()=>document.getElementById("cartModal").style.display="none";
 
-window.addOne = i=>{cart[i].qty++;updateCounter();openCart();}
-window.removeOne = i=>{
+/******** ACCIONES ********/
+window.addOne = i => { cart[i].qty++; updateCounter(); openCart(); };
+
+window.removeOne = i => {
 cart[i].qty--;
-if(cart[i].qty<=0) cart.splice(i,1);
-updateCounter();openCart();
-}
-window.deleteItem = i=>{
+if(cart[i].qty <= 0) cart.splice(i,1);
+updateCounter();
+openCart();
+};
+
+window.deleteItem = i => {
 cart.splice(i,1);
-updateCounter();openCart();
+updateCounter();
+openCart();
+};
+
+/******** WHATSAPP ********/
+window.checkout = function(){
+
+if(cart.length === 0){
+alert("Agrega productos primero");
+return;
 }
 
-window.checkout = function(){
-let total=0;
-let msg="Hola, quiero realizar un pedido:%0A%0A";
+let total = 0;
+let msg = "Hola, quiero realizar un pedido:%0A%0A";
 
 cart.forEach(p=>{
-let sub=p.qty*p.precio;
-total+=sub;
-msg+=`- ${p.name} (${p.opcion}) x${p.qty} → $${sub.toLocaleString("es-CO")}%0A`;
+let sub = p.qty * p.precio;
+total += sub;
+msg += `- ${p.name} (${p.opcion}) x${p.qty} → $${sub.toLocaleString("es-CO")}%0A`;
 });
 
-msg+=`%0A💵 Total: $${total.toLocaleString("es-CO")}`;
+msg += `%0A💵 Total: $${total.toLocaleString("es-CO")}`;
 
 window.open(`https://wa.me/573239618378?text=${msg}`);
 };
