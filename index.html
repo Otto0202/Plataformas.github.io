@@ -1,254 +1,142 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Tatake Plataformas</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Tatake Plataformas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-  <style>
-    body {
-      background-image: url("https://imgur.com/undefined.jpg");
-      background-size: cover;
-      background-position: center;
-    }
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: url("Fondo.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+}
 
-    .product-img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+/* Oscurecer fondo */
+body::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65);
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
 
-    /* Animación al agregar */
-    .add-animation {
-      animation: pop 0.3s ease;
-    }
+.titulo {
+  font-size: 3rem;
+  font-weight: 900;
+  text-align: center;
+  background: linear-gradient(90deg,#ff6a00,#ff0000,#00c3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-      100% { transform: scale(1); }
-    }
+.card {
+  background: rgba(0,0,0,0.7);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  color: white;
+  transition: 0.3s;
+}
+.card:hover { transform: scale(1.05); }
 
-    /* Animación precio por mayor */
-    .wholesale-animate {
-      animation: glow 1s infinite alternate;
-    }
+button {
+  background: linear-gradient(90deg,#00c853,#64dd17);
+  border-radius: 8px;
+  font-weight: bold;
+}
 
-    @keyframes glow {
-      from { background-color: #ecfdf5; }
-      to { background-color: #d1fae5; }
-    }
-  </style>
+.product-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+</style>
 </head>
 
-<body class="bg-gray-100 bg-opacity-90 p-4">
-
-<!-- MODAL IMAGEN FULL -->
-<div id="imageModal"
-     class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
-     onclick="closeImageModal()">
-  <img id="modalImage"
-       class="max-w-full max-h-full object-contain"
-       onclick="event.stopPropagation()">
-  <button onclick="closeImageModal()"
-          class="absolute top-4 right-4 text-white text-4xl font-bold">✕</button>
-</div>
-
-<!-- MODAL DOMICILIO -->
-<div id="welcomeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
-  <div class="bg-white p-6 rounded text-center max-w-sm">
-  <h2 class="text-xl font-extrabold text-red-600 mb-3 flex items-center justify-center gap-2">
-  🚨 IMPORTANTE
-</h2>
-
-<p class="text-gray-800 text-base font-semibold mb-4">
- Preguntar por la <span class="text-red-600 font-bold">disponibilidad</span> de lo que deseas comprar
-  <span class="font-bold">antes de cancelar</span>.
-</p>
-
-<p class="text-sm text-gray-600">
-  Por favor, verifica tu pedido después de que se te envíe el mensaje.
-</p>
-    <button onclick="closeAlertModal()" class="bg-blue-600 text-white px-6 py-2 rounded">
-      Aceptar
-    </button>
-  </div>
-</div>
+<body class="p-4">
 
 <div class="max-w-7xl mx-auto">
 
-
-
-
-<!-- LOGO + TITULO -->
-<div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
-  <img src="https://imgur.com/kd7PZm2.png" alt="Tatake Plataformas" class="w-32 md:w-40">
-  <h1 class="text-4xl md:text-5xl font-bold text-center">Tatake Plataformas</h1>
-</div>
-<!-- PRODUCTOS -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/qWeIeJQ.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Netflix</h2>
-  <p>$2.500 • $2.000 por mayor (30+)</p>
-  <button onclick="addToCart('Netflix',2500)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
+<div class="text-center mb-8">
+  <img src="https://imgur.com/kd7PZm2.png" class="mx-auto w-32 mb-2">
+  <h1 class="titulo">Tatake Plataformas</h1>
 </div>
 
+<!-- 🔥 POR PANTALLAS -->
+<h2 class="text-white text-2xl font-bold mb-4">🔥 Por Pantallas</h2>
+<div class="grid md:grid-cols-3 gap-6">
 
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/rw8oSWW.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Disney+</h2>
-  <p>$5.000 • $4.500 por mayor (30+)</p>
-  <button onclick="addToCart('Disney+',5000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
+<div class="card p-4">
+<img src="https://imgur.com/qWeIeJQ.jpg" class="product-img">
+<h2 class="font-bold mt-2">Netflix</h2>
+<p>$15,000 (26 días)</p>
+<button onclick="addToCart('Netflix',15000)" class="w-full mt-2 py-2">Agregar</button>
 </div>
 
-
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/MEQjJ5o.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Hbo Max</h2>
-  <p>$5.000 • $4.500 por mayor (30+)</p>
-  <button onclick="addToCart('Hbo Max',5000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
+<div class="card p-4">
+<img src="https://imgur.com/rw8oSWW.jpg" class="product-img">
+<h2>Disney+</h2>
+<ul class="text-sm">
+<li>Con ESPN - $10,000</li>
+<li>Sin ESPN - $8,000</li>
+<li>Con anuncios - $6,000</li>
+</ul>
+<button onclick="addToCart('Disney+ con ESPN',10000)" class="w-full mt-2 py-2">Agregar</button>
 </div>
 
-
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/nG42eev.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Crunchyroll</h2>
-  <p>$6.000 • $5.500 por mayor (30+)</p>
-  <button onclick="addToCart('Crunchyroll',6000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
+<div class="card p-4">
+<img src="https://imgur.com/MEQjJ5o.jpg" class="product-img">
+<h2>HBO Max</h2>
+<ul class="text-sm">
+<li>Estándar - $6,500</li>
+<li>Platino - $9,000</li>
+</ul>
+<button onclick="addToCart('HBO Max',6500)" class="w-full mt-2 py-2">Agregar</button>
 </div>
 
-<!-- Sandwich especial -->
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/lIL02hn.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Prime Video</h2>
-  <p>$10.000 • $9.000 por mayor (30+)</p>
-  <button onclick="addToCart('Prime Video',10000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
 </div>
 
-<!-- Mini sandwich -->
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/A9OoDDR.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Paramount+</h2>
-  <p>$4.000 • $3.500 por mayor (30+)</p>
-  <button onclick="addToCart('Paramount+',4000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
+<!-- 🔵 CUENTAS COMPLETAS -->
+<h2 class="text-white text-2xl font-bold mt-10 mb-4">🔵 Cuentas Completas</h2>
+<div class="grid md:grid-cols-3 gap-6">
+
+<div class="card p-4">
+<h2>Disney+ 7 pantallas</h2>
+<p>$28,000 con ESPN</p>
+<p>$22,000 sin ESPN</p>
+<button onclick="addToCart('Disney+ Completa',28000)" class="w-full mt-2 py-2">Agregar</button>
 </div>
 
-<!-- Deditos -->
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/xk7TleC.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Vix</h2>
-  <p>$2.500</p>
-  <button onclick="addToCart('Vix',2500)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
+<div class="card p-4">
+<h2>Prime Video</h2>
+<p>$22,000 (6 pantallas)</p>
+<button onclick="addToCart('Prime Video Completo',22000)" class="w-full mt-2 py-2">Agregar</button>
 </div>
 
-<!-- Nuggets -->
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/uH3mttW.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Plex</h2>
-  <p>$2.500</p>
-  <button onclick="addToCart('Plex',2500)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
+<div class="card p-4">
+<h2>Crunchyroll</h2>
+<p>$15,500 (5 pantallas)</p>
+<button onclick="addToCart('Crunchyroll Completo',15500)" class="w-full mt-2 py-2">Agregar</button>
 </div>
 
-<!-- Mini arepas -->
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/Y6wj3CT.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Magis TV</h2>
-  <p>$5.000 • $4.500 por mayor (30+)</p>
-  <button onclick="addToCart('Magis TV',5000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
 </div>
 
-<!-- Medallones -->
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/89YQK3J.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">YouTube Premium</h2>
-  <p>$7.000 • $6.400 por mayor (30+)</p>
-  <button onclick="addToCart('YouTube Premium',7000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
-</div>
+<!-- 🛒 CARRITO -->
+<div class="max-w-4xl mx-auto mt-10 card p-4">
+<h2 class="text-2xl font-bold text-center mb-4">🛒 Carrito</h2>
+<div id="cart"></div>
 
-<!-- Natilla -->
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/rv3NfbX.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Spotify</h2>
-  <p>$5.000 • $4.500 por mayor (50+)</p>
-  <button onclick="addToCart('Spotify',5000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
-</div>
-
-<!-- Avena -->
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/ggsjka3.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Deezer</h2>
-  <p>$3.500</p>
-  <button onclick="addToCart('Deezer',3500)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
-</div>
-
-<!-- Arroz sencillo -->
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/i0OC1VF.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Canva</h2>
-  <p>$4.500</p>
-  <button onclick="addToCart('Canva',4500)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
-</div>
-
-<!-- Arroz especial -->
-<div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/7bhEfFG.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Apple(sin MLS)</h2>
-  <p>$6.000</p>
-  <button onclick="addToCart('Apple(sin MLS)',6000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
-</div>
-
-  <div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/y48RpoH.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">CapCut Pro</h2>
-  <p>$6.000</p>
-  <button onclick="addToCart('CapCut Pro',6000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
-</div>
-
-  <div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/Ys14gGe.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Microsoft 365(año)</h2>
-  <p>$6.000</p>
-  <button onclick="addToCart('Microsoft 365(año)',6000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
-</div>
-
-    <div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/JYNI7nF.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Chat GPT (Correo personal)</h2>
-  <p>$6.000</p>
-  <button onclick="addToCart('Chat GPT (Correo personal)',6000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
-</div>
-
-     <div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/k8r44fZ.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Directv Go Plan oro sin Win+</h2>
-  <p>$6.000</p>
-  <button onclick="addToCart('Directv Go Plan oro sin Win+',6000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
-</div>
-
-     <div class="bg-white p-4 rounded shadow">
-  <img src="https://imgur.com/Po4LLSW.jpg" class="product-img" onclick="openImage(this.src)">
-  <h2 class="font-bold mt-2">Win Play</h2>
-  <p>$6.000</p>
-  <button onclick="addToCart('Win Play',6000)" class="bg-green-500 text-white w-full py-2 mt-2 rounded">Agregar</button>
-</div>
-  
-</div>
- </div>
-
-
-<!-- CARRITO -->
-<div class="max-w-4xl mx-auto mt-8 bg-white p-4 rounded shadow">
-  <h2 class="text-2xl font-bold mb-4 text-center">Carrito</h2>
-  <div id="cart"></div>
-  <button onclick="checkout()" class="bg-blue-600 text-white w-full py-3 mt-4 rounded">
-    Enviar pedido por WhatsApp
-  </button>
+<button onclick="checkout()" class="w-full py-3 mt-4">
+Enviar pedido por WhatsApp
+</button>
 </div>
 
 </div>
