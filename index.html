@@ -23,8 +23,18 @@ background:rgba(0,0,0,0.75);
 z-index:-1;
 }
 
+/* TITULO PRO */
+.titulo{
+font-size:3rem;
+font-weight:900;
+text-align:center;
+color:#ff2a2a;
+text-shadow:0 0 10px #ff0000,0 0 20px #ff0000;
+}
+
+/* CARDS */
 .card{
-background:rgba(0,0,0,0.8);
+background:rgba(0,0,0,0.85);
 border-radius:15px;
 color:white;
 padding:15px;
@@ -48,6 +58,7 @@ margin-top:10px;
 font-weight:bold;
 }
 
+/* BOTON FLOTANTE */
 .floating{
 position:fixed;
 bottom:20px;
@@ -66,7 +77,7 @@ padding:2px 8px;
 margin-left:5px;
 }
 
-/* modal */
+/* MODAL */
 .modal{
 position:fixed;
 top:0;
@@ -91,7 +102,10 @@ max-width:400px;
 
 <body class="p-4">
 
-<h1 class="text-white text-center text-4xl font-bold mb-6">Tatake Plataformas</h1>
+<div class="text-center mb-6">
+<img src="https://imgur.com/kd7PZm2.png" class="mx-auto w-32 mb-2">
+<h1 class="titulo">Tatake Plataformas</h1>
+</div>
 
 <div id="productos" class="grid md:grid-cols-3 gap-6"></div>
 
@@ -100,7 +114,7 @@ max-width:400px;
 🛒 <span id="contador" class="counter">0</span>
 </div>
 
-<!-- MODAL CARRITO -->
+<!-- MODAL -->
 <div id="cartModal" class="modal">
 <div class="modal-content">
 <h2 class="text-xl font-bold mb-3">Tu pedido</h2>
