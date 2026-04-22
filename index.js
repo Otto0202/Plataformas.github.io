@@ -1,142 +1,44 @@
 const productos = [
 {
-nombre:"Netflix",
-img:"https://imgur.com/qWeIeJQ.jpg",
-pantalla:["26 días - 15000"],
-cuenta:[]
+nombre:"Plex",
+img:"https://imgur.com/uH3mttW.jpg",
+opciones:[
+{tipo:"Pantalla", lista:[
+"1 mes (Roku/IOS) - 8000",
+"1 mes (NO Roku/IOS) - 6500",
+"3 meses (NO Roku/IOS) - 15000"
+]},
+{tipo:"Cuenta completa", lista:[
+"4 pantallas 1 mes (Roku/IOS) - 20000",
+"4 pantallas 1 mes (NO Roku/IOS) - 15000",
+"3 meses (NO Roku/IOS) - 25000",
+"6 meses (NO Roku/IOS) - 45000"
+]}
+]
 },
-{
-nombre:"Win Play",
-img:"https://imgur.com/Po4LLSW.jpg",
-pantalla:["30 días - 15000"],
-cuenta:[]
-},
+
 {
 nombre:"Disney+",
 img:"https://imgur.com/rw8oSWW.jpg",
-pantalla:[
+opciones:[
+{tipo:"Pantalla", lista:[
 "Con ESPN - 10000",
 "Sin ESPN (sin anuncios) - 8000",
-"Sin ESPN (con anuncios) - 6000"
-],
-cuenta:[
+"Con anuncios - 6000"
+]},
+{tipo:"Cuenta completa", lista:[
 "7 pantallas con ESPN - 28000",
 "7 pantallas sin ESPN - 22000"
+]}
 ]
 },
+
 {
-nombre:"HBO Max",
-img:"https://imgur.com/MEQjJ5o.jpg",
-pantalla:[
-"Estandar - 6500",
-"Platino - 9000"
-],
-cuenta:[
-"Max (5 pantallas) - 15000",
-"Platino (5 pantallas) - 20000"
+nombre:"Netflix",
+img:"https://imgur.com/qWeIeJQ.jpg",
+opciones:[
+{tipo:"Pantalla", lista:["26 días - 15000"]}
 ]
-},
-{
-nombre:"Crunchyroll",
-img:"https://imgur.com/nG42eev.jpg",
-pantalla:["Mega Fan - 9000"],
-cuenta:["5 pantallas - 15500"]
-},
-{
-nombre:"Prime Video",
-img:"https://imgur.com/lIL02hn.jpg",
-pantalla:["Pantalla - 7500"],
-cuenta:["6 pantallas - 22000"]
-},
-{
-nombre:"Paramount+",
-img:"https://imgur.com/A9OoDDR.jpg",
-pantalla:["Pantalla - 6500"],
-cuenta:["6 pantallas - 16000"]
-},
-{
-nombre:"Vix",
-img:"https://imgur.com/xk7TleC.jpg",
-pantalla:["Pantalla - 8000"],
-cuenta:["5 pantallas - 16000"]
-},
-{
-nombre:"Plex",
-img:"https://imgur.com/uH3mttW.jpg",
-pantalla:[
-"1 mes Roku/IOS - 8000",
-"1 mes sin Roku - 6500",
-"3 meses - 15000"
-],
-cuenta:[
-"4 pantallas 1 mes Roku - 20000",
-"4 pantallas 1 mes - 15000",
-"3 meses - 25000",
-"6 meses - 45000"
-]
-},
-{
-nombre:"Magis TV",
-img:"https://imgur.com/Y6wj3CT.jpg",
-pantalla:["PRO - 9500"],
-cuenta:["Cuenta completa - 16000"]
-},
-{
-nombre:"Spotify",
-img:"https://imgur.com/rv3NfbX.jpg",
-pantalla:[
-"1 mes - 10000",
-"3 meses - 25000"
-],
-cuenta:[]
-},
-{
-nombre:"YouTube Premium",
-img:"https://imgur.com/89YQK3J.jpg",
-pantalla:["1 mes - 10000"],
-cuenta:[]
-},
-{
-nombre:"Deezer",
-img:"https://imgur.com/ggsjka3.jpg",
-pantalla:["1 mes - 10000"],
-cuenta:[]
-},
-{
-nombre:"Canva",
-img:"https://imgur.com/i0OC1VF.jpg",
-pantalla:["Estudiantil 1 mes - 12000"],
-cuenta:[]
-},
-{
-nombre:"Apple TV",
-img:"https://imgur.com/7bhEfFG.jpg",
-pantalla:["1 mes sin MLS - 8000"],
-cuenta:[]
-},
-{
-nombre:"Office 365",
-img:"https://imgur.com/Ys14gGe.jpg",
-pantalla:["1 año - 45000"],
-cuenta:[]
-},
-{
-nombre:"ChatGPT",
-img:"https://imgur.com/JYNI7nF.jpg",
-pantalla:["Correo personal - 17000"],
-cuenta:[]
-},
-{
-nombre:"CapCut Pro",
-img:"https://imgur.com/y48RpoH.jpg",
-pantalla:["1 dispositivo - 14000"],
-cuenta:["3 dispositivos - 20000"]
-},
-{
-nombre:"Directv Go",
-img:"https://imgur.com/k8r44fZ.jpg",
-pantalla:["Plan oro sin Win+ - 14000"],
-cuenta:[]
 }
 ];
 
@@ -145,62 +47,112 @@ let cart=[];
 /******** RENDER ********/
 const cont=document.getElementById("productos");
 
-productos.forEach(p=>{
-let pantalla = p.pantalla.length ? `
-<label>Pantalla</label>
-<select id="${p.nombre}-p">
-${p.pantalla.map(o=>`<option>${o}</option>`).join("")}
-</select>` : "";
+productos.forEach((p,index)=>{
 
-let cuenta = p.cuenta.length ? `
-<label>Cuenta completa</label>
-<select id="${p.nombre}-c">
-${p.cuenta.map(o=>`<option>${o}</option>`).join("")}
-</select>` : "";
+let radios = p.opciones.map((o,i)=>`
+<label>
+<input type="radio" name="tipo-${index}" value="${i}" ${i===0?'checked':''}>
+${o.tipo}
+</label>
+`).join("<br>");
 
 cont.innerHTML+=`
 <div class="card">
 <img src="${p.img}" class="product-img">
 <h2 class="font-bold mt-2">${p.nombre}</h2>
 
-${cuenta}
-${pantalla}
+<div>${radios}</div>
 
-<button class="btn" onclick="addToCart('${p.nombre}')">Agregar</button>
+<select id="select-${index}" class="w-full text-black mt-2 p-2 rounded"></select>
+
+<button onclick="addToCart(${index})" class="btn">Agregar</button>
 </div>
 `;
+
+/* actualizar select */
+updateSelect(index);
+document.querySelectorAll(`input[name="tipo-${index}"]`).forEach(r=>{
+r.addEventListener("change",()=>updateSelect(index));
+});
 });
 
+/******** ACTUALIZAR OPCIONES ********/
+function updateSelect(i){
+const tipo=document.querySelector(`input[name="tipo-${i}"]:checked`).value;
+const select=document.getElementById(`select-${i}`);
+
+select.innerHTML=productos[i].opciones[tipo].lista
+.map(o=>`<option>${o}</option>`).join("");
+}
+
 /******** AGREGAR ********/
-function addToCart(name){
+function addToCart(i){
 
-let opcion="";
-let precio=0;
+const select=document.getElementById(`select-${i}`);
+const value=select.value;
 
-const pSel=document.getElementById(name+"-p");
-const cSel=document.getElementById(name+"-c");
+const [opcion,precio]=value.split(" - ");
+const price=parseInt(precio);
 
-if(cSel){
-opcion="Cuenta completa - "+cSel.value;
-precio=parseInt(cSel.value.split(" - ")[1]);
-}
-else if(pSel){
-opcion="Pantalla - "+pSel.value;
-precio=parseInt(pSel.value.split(" - ")[1]);
-}
-
-let item=cart.find(i=>i.name===name && i.opcion===opcion);
+let item=cart.find(p=>p.name===productos[i].nombre && p.opcion===value);
 
 if(item){item.qty++;}
-else{cart.push({name,opcion,precio,qty:1});}
+else{
+cart.push({
+name:productos[i].nombre,
+opcion:value,
+precio:price,
+qty:1
+});
+}
 
 updateCounter();
 }
 
 /******** CONTADOR ********/
 function updateCounter(){
-let t=cart.reduce((s,i)=>s+i.qty,0);
-document.getElementById("contador").innerText=t;
+let total=cart.reduce((s,p)=>s+p.qty,0);
+document.getElementById("contador").innerText=total;
+}
+
+/******** MODAL ********/
+function openCart(){
+const div=document.getElementById("cartItems");
+div.innerHTML="";
+
+let total=0;
+
+cart.forEach((p,i)=>{
+let sub=p.qty*p.precio;
+total+=sub;
+
+div.innerHTML+=`
+<div class="mb-2 border-b pb-2">
+<b>${p.name}</b><br>
+${p.opcion}<br>
+${p.qty} x $${p.precio}
+<br>
+<b>$${sub.toLocaleString("es-CO")}</b>
+<br>
+<button onclick="removeItem(${i})" class="text-red-500">Eliminar</button>
+</div>
+`;
+});
+
+div.innerHTML+=`<h3 class="mt-3 font-bold">Total: $${total.toLocaleString("es-CO")}</h3>`;
+
+document.getElementById("cartModal").style.display="flex";
+}
+
+function closeCart(){
+document.getElementById("cartModal").style.display="none";
+}
+
+/******** ELIMINAR ********/
+function removeItem(i){
+cart.splice(i,1);
+updateCounter();
+openCart();
 }
 
 /******** WHATSAPP ********/
