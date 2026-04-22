@@ -8,85 +8,85 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <style>
-
-/* 🔥 FONDO ARREGLADO */
-body {
-  margin:0;
-  padding:0;
-  background: url("https://images.unsplash.com/photo-1604079628041-94301bb21b91") no-repeat center center fixed;
-  background-size: cover;
+body{
+margin:0;
+background:url("https://i.imgur.com/8bKQXKp.jpeg") no-repeat center center fixed;
+background-size:cover;
 }
 
-/* OSCURECER */
-body::before {
-  content:"";
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
-  top:0;
-  left:0;
-  z-index:-1;
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.75);
+top:0;
+left:0;
+z-index:-1;
 }
 
-/* TITULO */
-.titulo {
-  font-size:3rem;
-  font-weight:900;
-  text-align:center;
-  background: linear-gradient(90deg,#ff6a00,#ff0000,#00c3ff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+.titulo{
+font-size:3rem;
+font-weight:900;
+text-align:center;
+background:linear-gradient(90deg,#ff6a00,#ff0000,#00c3ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-/* CARDS */
-.card {
-  background: rgba(0,0,0,0.75);
-  border-radius:15px;
-  backdrop-filter: blur(10px);
-  color:white;
-  transition:0.3s;
+.card{
+background:rgba(0,0,0,0.75);
+border-radius:15px;
+color:white;
+padding:15px;
+transition:.3s;
 }
-.card:hover {
-  transform:scale(1.05);
+.card:hover{transform:scale(1.05);}
+
+.product-img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:10px;
 }
 
-/* BOTON */
-.btn {
-  background: linear-gradient(90deg,#00c853,#64dd17);
-  border-radius:8px;
-  font-weight:bold;
+select{
+width:100%;
+margin-top:5px;
+padding:6px;
+border-radius:6px;
+color:black;
 }
 
-/* IMAGEN */
-.product-img {
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  border-radius:10px;
+.btn{
+background:linear-gradient(90deg,#00c853,#64dd17);
+padding:8px;
+border-radius:8px;
+width:100%;
+margin-top:10px;
+font-weight:bold;
 }
 
-/* BOTON FLOTANTE */
-.floating {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:#25D366;
-  color:white;
-  padding:15px 20px;
-  border-radius:50px;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 0 15px rgba(0,0,0,0.5);
-  animation:pulse 1.5s infinite;
+/* carrito */
+.floating{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:15px 20px;
+border-radius:50px;
+cursor:pointer;
+font-weight:bold;
 }
 
-@keyframes pulse {
-  0%{transform:scale(1);}
-  50%{transform:scale(1.1);}
-  100%{transform:scale(1);}
+.counter{
+background:red;
+border-radius:50%;
+padding:3px 8px;
+margin-left:5px;
+font-size:12px;
 }
-
 </style>
 </head>
 
@@ -99,53 +99,12 @@ body::before {
 <h1 class="titulo">Tatake Plataformas</h1>
 </div>
 
-<div class="grid md:grid-cols-3 gap-6">
-
-<!-- 🔥 PRODUCTO EJEMPLO -->
-<div class="card p-4">
-<img src="https://imgur.com/qWeIeJQ.jpg" class="product-img">
-<h2 class="font-bold mt-2">Netflix</h2>
-
-<select id="Netflix" class="w-full text-black mt-2 p-2 rounded">
-<option value="26 días - 15000">26 días - $15,000</option>
-</select>
-
-<button onclick="addToCart('Netflix')" class="btn w-full mt-2 py-2">Agregar</button>
-</div>
-
-<div class="card p-4">
-<img src="https://imgur.com/rw8oSWW.jpg" class="product-img">
-<h2>Disney+</h2>
-
-<select id="Disney+" class="w-full text-black mt-2 p-2 rounded">
-<option value="Con ESPN - 10000">Con ESPN - $10,000</option>
-<option value="Sin ESPN - 8000">Sin ESPN - $8,000</option>
-<option value="Con anuncios - 6000">Con anuncios - $6,000</option>
-</select>
-
-<button onclick="addToCart('Disney+')" class="btn w-full mt-2 py-2">Agregar</button>
-</div>
-
-<div class="card p-4">
-<img src="https://imgur.com/MEQjJ5o.jpg" class="product-img">
-<h2>HBO Max</h2>
-
-<select id="HBO Max" class="w-full text-black mt-2 p-2 rounded">
-<option value="Estandar - 6500">Estandar - $6,500</option>
-<option value="Platino - 9000">Platino - $9,000</option>
-</select>
-
-<button onclick="addToCart('HBO Max')" class="btn w-full mt-2 py-2">Agregar</button>
-</div>
-
-<!-- AGREGA LOS DEMÁS IGUAL (YA TE DEJO LA LÓGICA LISTA) -->
+<div id="productos" class="grid md:grid-cols-3 gap-6"></div>
 
 </div>
-</div>
 
-<!-- 🔥 BOTON CARRITO -->
 <div class="floating" onclick="checkout()">
-🛒 Enviar Pedido
+🛒 Pedido <span id="contador" class="counter">0</span>
 </div>
 
 <script src="index.js"></script>
