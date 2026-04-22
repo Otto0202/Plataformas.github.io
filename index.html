@@ -10,29 +10,33 @@
 <style>
 body{
 margin:0;
-background:url("https://imgur.com/MYZ6UiM.jpeg") no-repeat center center;
-background-size: cover;
-background-attachment: scroll;
+background:url("https://imgur.com/MYZ6UiM.jpeg") no-repeat center center fixed;
+background-size:cover;
+font-family:sans-serif;
 }
 
+/* capa oscura */
 .overlay{
 background:rgba(0,0,0,0.7);
 min-height:100vh;
 padding:20px;
 }
 
-/* HEADER */
+/* LOGO */
 .logo{
-width:80px;
-margin:auto;
+width:120px;
+display:block;
+margin:0 auto;
 }
 
+/* TITULO */
 .titulo{
-font-size:2rem;
-font-weight:800;
 text-align:center;
+font-size:2.2rem;
+font-weight:900;
 color:#ff3b3b;
-margin-top:5px;
+margin-top:10px;
+text-shadow:0 0 10px rgba(255,0,0,0.7);
 }
 
 /* CARDS */
@@ -41,7 +45,7 @@ background:#111;
 border-radius:12px;
 padding:12px;
 color:white;
-box-shadow:0 0 10px rgba(0,0,0,0.5);
+box-shadow:0 0 10px rgba(0,0,0,0.6);
 }
 
 .product-img{
@@ -51,6 +55,7 @@ object-fit:cover;
 border-radius:8px;
 }
 
+/* BOTON */
 .btn{
 background:#22c55e;
 padding:8px;
@@ -60,22 +65,23 @@ margin-top:8px;
 font-weight:bold;
 }
 
-/* BOTON */
+/* CARRITO */
 .floating{
 position:fixed;
 bottom:20px;
 right:20px;
 background:#25D366;
-padding:12px;
+padding:14px;
 border-radius:50px;
 color:white;
 cursor:pointer;
+font-size:18px;
 }
 
 .counter{
 background:red;
 border-radius:50%;
-padding:2px 6px;
+padding:2px 7px;
 margin-left:5px;
 font-size:12px;
 }
@@ -107,16 +113,18 @@ max-width:350px;
 
 <div class="overlay">
 
-<div class="text-center mb-6">
-<img src="https://imgur.com/kd7PZm2.png" style="width:120px;">
+<!-- HEADER -->
+<div>
+<img src="https://imgur.com/kd7PZm2.png" class="logo">
 <h1 class="titulo">Tatake Plataformas</h1>
 </div>
 
-<div id="productos" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+<!-- PRODUCTOS -->
+<div id="productos" class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6"></div>
 
 </div>
 
-<!-- BOTON -->
+<!-- BOTON CARRITO -->
 <div class="floating" onclick="openCart()">
 🛒 <span id="contador" class="counter">0</span>
 </div>
@@ -124,7 +132,7 @@ max-width:350px;
 <!-- MODAL -->
 <div id="cartModal" class="modal">
 <div class="modal-content">
-<h2 class="font-bold mb-2">Tu pedido</h2>
+<h2 class="font-bold mb-2 text-center">Tu pedido</h2>
 <div id="cartItems"></div>
 
 <button onclick="checkout()" class="bg-green-500 text-white w-full mt-2 p-2 rounded">
