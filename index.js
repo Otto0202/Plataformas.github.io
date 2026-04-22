@@ -165,12 +165,28 @@ cont.innerHTML+=`
 </div>
 `;
 
-updateSelect(i);
+function updateSelect(i){
+  const tipo = document.querySelector(`input[name="tipo-${i}"]:checked`).value;
+  const select = document.getElementById(`select-${i}`);
 
-document.querySelectorAll(`input[name="tipo-${i}"]`).forEach(r=>{
-r.addEventListener("change",()=>updateSelect(i));
-});
-});
+  let lista = tipo === "pantalla"
+    ? productos[i].pantalla
+    : productos[i].cuenta;
+
+  // 🔥 limpiar completamente
+  select.innerHTML = "";
+
+  // 🔥 crear opciones correctamente
+  lista.forEach(op => {
+    const option = document.createElement("option");
+    option.value = op;
+    option.textContent = op;
+    select.appendChild(option);
+  });
+
+  // 🔥 forzar que seleccione la primera opción nueva
+  select.selectedIndex = 0;
+}
 
 /******** ACTUALIZAR SELECT ********/
 function updateSelect(i){
