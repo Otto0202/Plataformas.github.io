@@ -1,9 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-/******** MODAL ********/
-window.closeAlertModal = () =>
-document.getElementById("welcomeModal").style.display = "none";
+/******** MODAL IMPORTANTE ********/
+window.closeAlertModal = function () {
+  document.getElementById("welcomeModal").classList.add("hidden");
+};
 
+// Mostrar al cargar
+document.getElementById("welcomeModal").classList.remove("hidden");
 /******** FORMATO PRECIO ********/
 function format(n){
 return "$"+n.toLocaleString("es-CO");
