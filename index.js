@@ -1,28 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
+
 /******** MODAL ALERTA ********/
 function closeAlertModal() {
   document.getElementById("welcomeModal").style.display = "none";
 }
+window.closeAlertModal = closeAlertModal;
 
 // Mostrar al cargar
 document.getElementById("welcomeModal").style.display = "flex";
+
+
 /******** PRODUCTOS ********/
 const productos = [
 {
 nombre:"Netflix",
-img:"https://imgur.com/qWeIeJQ.jpg",
+img:"https://i.imgur.com/qWeIeJQ.jpg",
 pantalla:["26 días - 15000"],
 cuenta:[]
 },
 {
 nombre:"Win Play",
-img:"https://imgur.com/Po4LLSW.jpg",
+img:"https://i.imgur.com/Po4LLSW.jpg",
 pantalla:["30 días - 15000"],
 cuenta:[]
 },
 {
 nombre:"Disney+",
-img:"https://imgur.com/rw8oSWW.jpg",
+img:"https://i.imgur.com/rw8oSWW.jpg",
 pantalla:[
 "Con ESPN - 10000",
 "Sin ESPN SIN ANUNCIOS - 8000",
@@ -35,43 +39,43 @@ cuenta:[
 },
 {
 nombre:"HBO Max",
-img:"https://imgur.com/MEQjJ5o.jpg",
+img:"https://i.imgur.com/MEQjJ5o.jpg",
 pantalla:[
 "Estandar - 6500",
 "Platino pantalla - 9000"
 ],
 cuenta:[
-"Max 5 Pantallas - 15000",
+"5 Pantallas - 15000",
 "Platino 5 Pantallas - 20000"
 ]
 },
 {
 nombre:"Crunchyroll",
-img:"https://imgur.com/nG42eev.jpg",
+img:"https://i.imgur.com/nG42eev.jpg",
 pantalla:["Mega Fan - 9000"],
 cuenta:["5 Pantallas - 15500"]
 },
 {
 nombre:"Prime Video",
-img:"https://imgur.com/lIL02hn.jpg",
+img:"https://i.imgur.com/lIL02hn.jpg",
 pantalla:["Pantalla - 7500"],
-cuenta:["Original 6 Pantallas - 22000"]
+cuenta:["6 Pantallas - 22000"]
 },
 {
 nombre:"Paramount+",
-img:"https://imgur.com/A9OoDDR.jpg",
+img:"https://i.imgur.com/A9OoDDR.jpg",
 pantalla:["Pantalla - 6500"],
 cuenta:["6 Pantallas - 16000"]
 },
 {
 nombre:"Vix",
-img:"https://imgur.com/xk7TleC.jpg",
+img:"https://i.imgur.com/xk7TleC.jpg",
 pantalla:["Pantalla - 8000"],
 cuenta:["5 Pantallas - 16000"]
 },
 {
 nombre:"Plex",
-img:"https://imgur.com/uH3mttW.jpg",
+img:"https://i.imgur.com/uH3mttW.jpg",
 pantalla:[
 "1 Mes (Roku/IOS) - 8000",
 "1 Mes (NO Roku/IOS) - 6500",
@@ -86,61 +90,61 @@ cuenta:[
 },
 {
 nombre:"Magis TV",
-img:"https://imgur.com/Y6wj3CT.jpg",
+img:"https://i.imgur.com/Y6wj3CT.jpg",
 pantalla:["PRO pantalla - 9500"],
 cuenta:["Cuenta completa - 16000"]
 },
 {
 nombre:"YouTube",
-img:"https://imgur.com/89YQK3J.jpg",
+img:"https://i.imgur.com/89YQK3J.jpg",
 pantalla:["1 mes - 10000"],
 cuenta:[]
 },
 {
 nombre:"Spotify",
-img:"https://imgur.com/rv3NfbX.jpg",
+img:"https://i.imgur.com/rv3NfbX.jpg",
 pantalla:["1 mes - 10000","3 meses - 25000"],
 cuenta:[]
 },
 {
 nombre:"Deezer",
-img:"https://imgur.com/ggsjka3.jpg",
+img:"https://i.imgur.com/ggsjka3.jpg",
 pantalla:["1 mes - 10000"],
 cuenta:[]
 },
 {
 nombre:"Canva",
-img:"https://imgur.com/i0OC1VF.jpg",
+img:"https://i.imgur.com/i0OC1VF.jpg",
 pantalla:["1 Mes (estudiantil) - 12000"],
 cuenta:[]
 },
 {
 nombre:"Apple TV",
-img:"https://imgur.com/7bhEfFG.jpg",
+img:"https://i.imgur.com/7bhEfFG.jpg",
 pantalla:["1 Mes (sin MLS) - 8000"],
 cuenta:[]
 },
 {
 nombre:"Office 365",
-img:"https://imgur.com/Ys14gGe.jpg",
+img:"https://i.imgur.com/Ys14gGe.jpg",
 pantalla:["1 año - 45000"],
 cuenta:[]
 },
 {
 nombre:"Chat GPT",
-img:"https://imgur.com/JYNI7nF.jpg",
+img:"https://i.imgur.com/JYNI7nF.jpg",
 pantalla:["Correo personal - 17000"],
 cuenta:[]
 },
 {
 nombre:"Capcut Pro",
-img:"https://imgur.com/y48RpoH.jpg",
+img:"https://i.imgur.com/y48RpoH.jpg",
 pantalla:["1 dispositivo - 14000"],
 cuenta:["3 dispositivos - 20000"]
 },
 {
 nombre:"Directv Go",
-img:"https://imgur.com/k8r44fZ.jpg",
+img:"https://i.imgur.com/k8r44fZ.jpg",
 pantalla:["Plan oro sin Win+ - 14000"],
 cuenta:[]
 }
@@ -160,7 +164,7 @@ let radiosHTML = `
 `;
 
 if(p.cuenta.length){
-radiosHTML += `<label><input type="radio" name="tipo-${i}" value="cuenta"> Cuenta completa</label>`;
+radiosHTML += `<label class="ml-2"><input type="radio" name="tipo-${i}" value="cuenta"> Cuenta completa</label>`;
 }
 
 card.innerHTML = `
@@ -176,11 +180,11 @@ card.innerHTML = `
 
 cont.appendChild(card);
 
-/******** EVENTOS ********/
 const radios = card.querySelectorAll(`input[name="tipo-${i}"]`);
 const select = card.querySelector(`#select-${i}`);
 const btn = card.querySelector("button");
 
+/******** ACTUALIZAR OPCIONES ********/
 function actualizarOpciones(){
 const tipo = card.querySelector(`input[name="tipo-${i}"]:checked`).value;
 const lista = tipo === "pantalla" ? p.pantalla : p.cuenta;
@@ -194,12 +198,13 @@ return;
 
 lista.forEach(op=>{
 let option = document.createElement("option");
+option.value = op;
 option.textContent = op;
 select.appendChild(option);
 });
 }
 
-/* listeners */
+/******** EVENTOS ********/
 radios.forEach(r=>r.addEventListener("change", actualizarOpciones));
 
 btn.addEventListener("click", ()=>{
@@ -236,7 +241,7 @@ let sub = p.qty * p.precio;
 total += sub;
 
 div.innerHTML += `
-<div>
+<div style="margin-bottom:10px;">
 <b>${p.name}</b><br>
 ${p.opcion}<br>
 ${p.qty} x $${p.precio}<br>
@@ -273,16 +278,17 @@ openCart();
 
 window.checkout = function(){
 let total=0;
-let msg="Hola, quiero realizar un pedido:%0A%0A";
+let msg="Hola, quiero realizar un pedido:\n\n";
 
 cart.forEach(p=>{
 let sub=p.qty*p.precio;
 total+=sub;
-msg+=`- ${p.name} (${p.opcion}) x${p.qty} → $${sub.toLocaleString("es-CO")}%0A`;
+msg+=`- ${p.name} (${p.opcion}) x${p.qty} → $${sub.toLocaleString("es-CO")}\n`;
 });
 
-msg+=`%0A💵 Total: $${total.toLocaleString("es-CO")}`;
-window.open(`https://wa.me/573239618378?text=${msg}`);
+msg+=`\n💵 Total: $${total.toLocaleString("es-CO")}`;
+
+window.open(`https://wa.me/573239618378?text=${encodeURIComponent(msg)}`);
 };
 
 });
