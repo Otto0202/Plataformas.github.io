@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+/******** MODAL ALERTA ********/
+function closeAlertModal() {
+  document.getElementById("welcomeModal").style.display = "none";
+}
 
+// Mostrar al cargar
+document.getElementById("welcomeModal").style.display = "flex";
 /******** PRODUCTOS ********/
 const productos = [
 {
