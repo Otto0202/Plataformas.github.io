@@ -21,7 +21,30 @@ background:rgba(0,0,0,0.6);
 min-height:100vh;
 }
 
+<!-- 🔴 MODAL ALERTA (AQUÍ VA) -->
+<div id="welcomeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded text-center max-w-sm">
+    
+    <h2 class="text-xl font-extrabold text-red-600 mb-3 flex items-center justify-center gap-2">
+      🚨 IMPORTANTE
+    </h2>
 
+    <p class="text-gray-800 text-base font-semibold mb-4">
+      Cada producto está sujeto a <span class="text-red-600 font-bold">disponibilidad</span>, 
+      esperar respuesta de confirmación antes de 
+      <span class="font-bold">cancelar el valor</span> del producto.
+    </p>
+
+    <p class="text-sm text-gray-600">
+      Por favor, verifica que te funciona la cuenta después de la venta.
+    </p>
+
+    <button onclick="closeAlertModal()" class="bg-blue-600 text-white px-6 py-2 rounded mt-3">
+      Aceptar
+    </button>
+
+  </div>
+</div>
 
   
 /* capa oscura */
