@@ -1,10 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tatake Plataformas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+background:url("https://i.imgur.com/8bKQXKp.jpeg") no-repeat center center fixed;
+background-size:cover;
+font-family:sans-serif;
+}
+
+.overlay{
+background:rgba(0,0,0,0.7);
+min-height:100vh;
+padding:20px;
+}
+
+/* HEADER */
+.logo{
+width:80px;
+margin:auto;
+}
+
+.titulo{
+font-size:2rem;
+font-weight:800;
+text-align:center;
+color:#ff3b3b;
+margin-top:5px;
+}
+
+/* CARDS */
+.card{
+background:#111;
+border-radius:12px;
+padding:12px;
+color:white;
+box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+
+.product-img{
+width:100%;
+height:140px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.btn{
+background:#22c55e;
+padding:8px;
+border-radius:6px;
+width:100%;
+margin-top:8px;
+font-weight:bold;
+}
+
+/* BOTON */
+.floating{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+padding:12px;
+border-radius:50px;
+color:white;
+cursor:pointer;
+}
+
 .counter{
 background:red;
 border-radius:50%;
-padding:2px 8px;
+padding:2px 6px;
 margin-left:5px;
+font-size:12px;
 }
 
+/* MODAL */
 .modal{
 position:fixed;
 top:0;
@@ -19,33 +95,39 @@ justify-content:center;
 
 .modal-content{
 background:white;
-padding:20px;
+padding:15px;
 border-radius:10px;
 width:90%;
-max-width:400px;
+max-width:350px;
 }
 </style>
 </head>
 
-<body class="p-4">
+<body>
+
+<div class="overlay">
 
 <div class="text-center mb-6">
-<img src="https://imgur.com/kd7PZm2.png" class="mx-auto w-32 mb-2">
+<img src="https://imgur.com/kd7PZm2.png" class="logo">
 <h1 class="titulo">Tatake Plataformas</h1>
 </div>
 
-<div id="productos" class="grid md:grid-cols-3 gap-6"></div>
+<div id="productos" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
 
+</div>
+
+<!-- BOTON -->
 <div class="floating" onclick="openCart()">
 🛒 <span id="contador" class="counter">0</span>
 </div>
 
+<!-- MODAL -->
 <div id="cartModal" class="modal">
 <div class="modal-content">
-<h2 class="text-xl font-bold mb-3">Tu pedido</h2>
+<h2 class="font-bold mb-2">Tu pedido</h2>
 <div id="cartItems"></div>
 
-<button onclick="checkout()" class="bg-green-500 text-white w-full mt-3 p-2 rounded">
+<button onclick="checkout()" class="bg-green-500 text-white w-full mt-2 p-2 rounded">
 Enviar por WhatsApp
 </button>
 
