@@ -90,10 +90,7 @@ cuenta:[]
 {
 nombre:"Spotify",
 img:"https://imgur.com/rv3NfbX.jpg",
-pantalla:[
-"1 mes - 10000",
-"3 meses - 25000"
-],
+pantalla:["1 mes - 10000","3 meses - 25000"],
 cuenta:[]
 },
 {
@@ -147,17 +144,17 @@ const cont=document.getElementById("productos");
 
 productos.forEach((p,i)=>{
 
-let radios=`
+let radios = `
 <label><input type="radio" name="tipo-${i}" value="pantalla" checked> Pantalla</label>
-${p.cuenta.length?`<label><input type="radio" name="tipo-${i}" value="cuenta"> Cuenta completa</label>`:""}
+${p.cuenta.length ? `<label><input type="radio" name="tipo-${i}" value="cuenta"> Cuenta completa</label>` : ""}
 `;
 
-cont.innerHTML+=`
+cont.innerHTML += `
 <div class="card">
 <img src="${p.img}" class="product-img">
 <h2 class="font-bold mt-2">${p.nombre}</h2>
 
-<div class="mt-2">${radios}</div>
+<div>${radios}</div>
 
 <select id="select-${i}" class="w-full text-black mt-2 p-2 rounded"></select>
 
@@ -165,45 +162,36 @@ cont.innerHTML+=`
 </div>
 `;
 
-function updateSelect(i){
-  const tipo = document.querySelector(`input[name="tipo-${i}"]:checked`).value;
-  const select = document.getElementById(`select-${i}`);
+updateSelect(i);
 
-  let lista = tipo === "pantalla"
-    ? productos[i].pantalla
-    : productos[i].cuenta;
+document.querySelectorAll(`input[name="tipo-${i}"]`).forEach(r=>{
+r.addEventListener("change",()=>updateSelect(i));
+});
+});
 
-  // 🔥 limpiar completamente
-  select.innerHTML = "";
-
-  // 🔥 crear opciones correctamente
-  lista.forEach(op => {
-    const option = document.createElement("option");
-    option.value = op;
-    option.textContent = op;
-    select.appendChild(option);
-  });
-
-  // 🔥 forzar que seleccione la primera opción nueva
-  select.selectedIndex = 0;
-}
-
-/******** ACTUALIZAR SELECT ********/
+/******** FIX DEFINITIVO ********/
 function updateSelect(i){
 const tipo=document.querySelector(`input[name="tipo-${i}"]:checked`).value;
 const select=document.getElementById(`select-${i}`);
 
 let lista = tipo==="pantalla" ? productos[i].pantalla : productos[i].cuenta;
 
-select.innerHTML = lista.map(o=>`<option>${o}</option>`).join("");
+select.innerHTML = "";
+
+lista.forEach(op=>{
+let option=document.createElement("option");
+option.value=op;
+option.textContent=op;
+select.appendChild(option);
+});
+
+select.selectedIndex=0;
 }
 
-/******** AGREGAR ********/
+/******** RESTO IGUAL ********/
 function addToCart(i){
-const select=document.getElementById(`select-${i}`);
-const value=select.value;
-
-const [opcion,precio]=value.split(" - ");
+const value=document.getElementById(`select-${i}`).value;
+const [_,precio]=value.split(" - ");
 const price=parseInt(precio);
 
 let item=cart.find(p=>p.name===productos[i].nombre && p.opcion===value);
@@ -214,15 +202,13 @@ else{cart.push({name:productos[i].nombre,opcion:value,precio:price,qty:1});}
 updateCounter();
 }
 
-/******** CONTADOR ********/
 function updateCounter(){
-let t=cart.reduce((s,p)=>s+p.qty,0);
-document.getElementById("contador").innerText=t;
+document.getElementById("contador").innerText =
+cart.reduce((s,p)=>s+p.qty,0);
 }
 
-/******** CARRITO ********/
 function openCart(){
-const div=document.getElementById("cartItems");
+let div=document.getElementById("cartItems");
 div.innerHTML="";
 let total=0;
 
@@ -231,7 +217,7 @@ let sub=p.qty*p.precio;
 total+=sub;
 
 div.innerHTML+=`
-<div class="mb-2 border-b pb-2">
+<div>
 <b>${p.name}</b><br>
 ${p.opcion}<br>
 ${p.qty} x $${p.precio}<br>
@@ -239,32 +225,21 @@ ${p.qty} x $${p.precio}<br>
 
 <button onclick="addOne(${i})">+</button>
 <button onclick="removeOne(${i})">-</button>
-<button onclick="deleteItem(${i})" class="text-red-500">Eliminar</button>
+<button onclick="deleteItem(${i})">Eliminar</button>
+<hr>
 </div>
 `;
 });
 
-div.innerHTML+=`<h3 class="mt-3 font-bold">Total: $${total.toLocaleString("es-CO")}</h3>`;
+div.innerHTML+=`<b>Total: $${total.toLocaleString("es-CO")}</b>`;
 document.getElementById("cartModal").style.display="flex";
 }
 
-function closeCart(){
-document.getElementById("cartModal").style.display="none";
-}
-
-/******** ACCIONES ********/
+function closeCart(){document.getElementById("cartModal").style.display="none";}
 function addOne(i){cart[i].qty++;updateCounter();openCart();}
-function removeOne(i){
-cart[i].qty--;
-if(cart[i].qty<=0) cart.splice(i,1);
-updateCounter();openCart();
-}
-function deleteItem(i){
-cart.splice(i,1);
-updateCounter();openCart();
-}
+function removeOne(i){cart[i].qty--; if(cart[i].qty<=0) cart.splice(i,1); updateCounter();openCart();}
+function deleteItem(i){cart.splice(i,1); updateCounter();openCart();}
 
-/******** WHATSAPP ********/
 function checkout(){
 let total=0;
 let msg="Hola, quiero realizar un pedido:%0A%0A";
